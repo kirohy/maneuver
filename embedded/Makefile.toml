@@ -1,0 +1,18 @@
+[env]
+PROJECT = "embedded"
+FIRMWARE = "../target/thumbv7em-none-eabihf/release/${PROJECT}"
+TARGET = "${FIRMWARE}"
+
+[tasks.place]
+disabled = true
+
+[tasks.size]
+command = "du"
+args = ["-h", "${FIRMWARE}"]
+
+[tasks.debug]
+command = "gdb-multiarch"
+args = ["${FIRMWARE}"]
+
+[tasks.flash]
+script = ["openocd -f flash.cfg -c \"flash_elf ${FIRMWARE}\""]

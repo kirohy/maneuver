@@ -1,0 +1,6 @@
+[tasks.place]
+script = [
+'''
+cp ../target/release/visualizer ../executables/
+'''
+]

@@ -1,0 +1,14 @@
+[env]
+CARGO_MAKE_EXTEND_WORKSPACE_MAKEFILE = "true"
+
+[tasks.build]
+command = "cargo"
+args = ["build", "--release"]
+
+[tasks.place]
+script = [
+'''
+echo "Placing binaries ..."
+'''
+]
+

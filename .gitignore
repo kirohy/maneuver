@@ -1,0 +1,8 @@
+/target
+/executables
+/.idea
+Cargo.lock
+/embedded/.gdb_history
+/embedded/Cargo.lock
+/visualizer/Cargo.lock
+/reader/Cargo.lock
