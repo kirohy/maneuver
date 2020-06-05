@@ -3,12 +3,12 @@ use stm32f4xx_hal as hal;
 
 use hal::{
     adc::{
-        config::{SampleTime, Sequence},
+        config::SampleTime, // config::Sequence
         Adc,
     },
     delay::Delay,
-    gpio::Analog,
-    prelude::{_embedded_hal_adc_OneShot, _embedded_hal_blocking_delay_DelayMs},
+    // gpio::Analog,
+    prelude::_embedded_hal_blocking_delay_DelayMs, // prelude::_embedded_hal_adc_OneShot
     stm32::ADC3,
 };
 

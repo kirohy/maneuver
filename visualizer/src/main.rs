@@ -75,7 +75,7 @@ fn main() {
                                         }
                                     }
                                     buf.rotate_left(head + 2);
-                                    buf.split_off(BUF_SIZE);
+                                    buf.truncate(BUF_SIZE);
                                     let mut data = data.lock().unwrap();
                                     data.clear();
                                     data.append(&mut buf);
@@ -114,9 +114,6 @@ fn main() {
     let mut xyz_axis_world = window.add_group();
     put_xyz_axis(&mut xyz_axis_world, 1.0);
 
-    // let mut xyz_axis_real = window.add_group();
-    // put_xyz_axis(&mut xyz_axis_real, 2.0);
-
     let arm = window.add_group();
     let mut arm_sim = Arm::new(arm, 0.5, 4.0, 4.0);
 
@@ -130,7 +127,6 @@ fn main() {
             let q3 = f32::from_le_bytes([data[12], data[13], data[14], data[15]]);
             let angle = f32::from_le_bytes([data[16], data[17], data[18], data[19]]);
             let rotate_q = UnitQuaternion::from_quaternion(Quaternion::new(q0, q1, q2, q3));
-            // xyz_axis_real.set_local_rotation(rotate_q);
             arm_sim.set_upper_posture(rotate_q);
             arm_sim.set_theta_lower(angle);
         }

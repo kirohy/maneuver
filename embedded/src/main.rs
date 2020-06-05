@@ -3,7 +3,7 @@
 
 extern crate panic_halt;
 
-use core::{cell::RefCell, f32::consts::PI, ops::DerefMut};
+use core::{cell::RefCell, /* f32::consts::PI, */ ops::DerefMut};
 
 use cortex_m::interrupt::Mutex;
 use cortex_m_rt::entry;
@@ -13,14 +13,14 @@ use stm32f4xx_hal as hal;
 use hal::{
     adc::{config::AdcConfig, Adc},
     delay::Delay,
-    gpio::gpioa::{PA0, PA6, PA7},
+    gpio::gpioa::PA0, // PA6, PA7
     gpio::gpiob::{PB8, PB9},
     gpio::{AlternateOD, Analog, AF4},
     i2c::I2c,
     interrupt,
     prelude::*,
     serial::Serial,
-    stm32::{self, CorePeripherals, Peripherals, ADC1, ADC2, ADC3, I2C1, USART2},
+    stm32::{self, CorePeripherals, Peripherals, I2C1, USART2}, // ADC1, ADC2, ADC3
     timer::Timer,
 };
 
@@ -47,8 +47,6 @@ const CLOCK: u32 = 100; // Hertz
 const INIT_COUNT_IMU: u32 = 1000;
 const INIT_COUNT_ADC: u32 = 100;
 const HEADER: [u8; 2] = [0xE0, 0xE0];
-const POTENTIO_GAIN: f32 = 1.0 / 14.0;
-const DEG_TO_RAD: f32 = PI / 180.0;
 
 #[entry]
 fn main() -> ! {
@@ -102,8 +100,8 @@ fn main() -> ! {
         );
 
         // adc
-        let mut elbow_adc = Adc::adc3(peripherals.ADC3, true, AdcConfig::default());
-        let mut elbow_potentio = gpioa.pa0.into_analog();
+        let elbow_adc = Adc::adc3(peripherals.ADC3, true, AdcConfig::default());
+        let elbow_potentio = gpioa.pa0.into_analog();
 
         // sensor
         let mut bmx055 = handler::bmx055::IMU::new(i2c, 0.1, CLOCK as f32);
@@ -116,7 +114,7 @@ fn main() -> ! {
         }
         green_led.set_high().unwrap();
         bmx055.initialize(&mut delay, 10, INIT_COUNT_IMU);
-        elbow.initialize(&mut delay, 10, INIT_COUNT_ADC);
+        elbow.initialize(&mut delay, 10, INIT_COUNT_ADC).unwrap();
 
         green_led.set_low().unwrap();
 

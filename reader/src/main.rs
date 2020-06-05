@@ -39,7 +39,7 @@ async fn main() {
     println!("Successfully connected to {}", TCP_ADDR);
 
     let start = Instant::now();
-    let mut interval = time::interval(Duration::from_micros(9980));
+    let mut interval = time::interval(Duration::from_micros(10000));
 
     let mut data_raw = [0u8; BUF_SIZE];
 

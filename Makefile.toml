@@ -1,6 +1,15 @@
 [env]
 CARGO_MAKE_EXTEND_WORKSPACE_MAKEFILE = "true"
 
+[tasks.setup]
+script = [
+'''
+mkdir -p executables
+rustup update
+rustup target add thumbv7em-none-eabihf
+'''
+]
+
 [tasks.build]
 command = "cargo"
 args = ["build", "--release"]
@@ -11,4 +20,3 @@ script = [
 echo "Placing binaries ..."
 '''
 ]
-

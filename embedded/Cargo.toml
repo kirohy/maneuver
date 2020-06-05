@@ -14,6 +14,6 @@ panic-halt = "0.2.0"
 libm = "0.2.1"
 
 [dependencies.stm32f4xx-hal]
-version = "0.7.0"
+version = "0.8.2"
 features = ["stm32f446", "rt"]
 
